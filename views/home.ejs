@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+    /* CSS styles for text size */
+        .jumbotron h1 {
+            font-size: 40px; /* Change the font size as needed */
+            text-align: center;
+        }
+        .row a {
+            font-size: 50px; /* Change the font size as needed */
+             text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="jumbotron text-center">
+        <h1>Library Document Information Management System</h1>	
+<p><%= greeting %></p>
+
+<p> <img src="pic/library2.png" width="582" height="326"" alt="library picture" > </p>
+	<p><a href='pic/library.jpeg'>library picture</a></p>
+	<p><a href='/download/video_inside_a_library.mp4'>library video</a></p>
+    </div>
+    <div class="row ml-md-auto">
+
+        <a href="/create" role="button">Create New Document</a> <br>
+        <a href="/find" role="button">Find existing document by user name</a> <br>
+        <a href="/list" role="button">Show all user document information</a> <br>
+        <a href="/logout" role="button">Logout</a>
+    </div>
+    
+</body>
+</html>

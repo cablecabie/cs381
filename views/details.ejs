@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Details</title>
+    <style>
+        p{
+            font-size: 3.0em;
+        }
+    </style>
+</head>
+<body>
+    <div class="jumbotron text-center">
+        <h1>Library Document Information</h1>
+    </div>
+    <div class="row">
+        <p>User_Name:  <% if (typeof (item.UserName) !== "undefined") { %><%= item.UserName %><% } %></p><br>
+        <p>Date:  <% if (typeof (item.Date) !== "undefined") { %><%= item.Date %><% } %></p><br>
+        
+        <p>Book_Type:  <% if (typeof (item.Book_Information.Book_Type) !== "undefined") { %><%= item.Book_Information.Book_Type %><% } %></p><br>
+        <p>Book_Name:  <% if (typeof (item.Book_Information.Book_Name) !== "undefined") { %><%= item.Book_Information.Book_Name %><% } %></p><br>
+        
+        <p>Borrow_or_Return:  <% if (typeof (item.Borrow_or_Return) !== "undefined") { %><%= item.Borrow_or_Return %><% } %></p><br>
+        <p>Telephone_Number:  <% if (typeof (item.Telephone_Number) !== "undefined") { %><%= item.Telephone_Number %><% } %></p><br>
+        <p>Remark:  <% if (typeof (item.Remark) !== "undefined") { %><%= item.Remark %><% } %></p><br>
+    </div>
+        <a href="/edit?_id=<%= item._id %>" >Update the information</a><br><br>
+        <a href="/delete?_id=<%= item._id %>&owner=<%= item.ownerID %>">Delete the information</a><br><br>
+        <a href="/home">Back to home</a>
+</body>
+</html>
+

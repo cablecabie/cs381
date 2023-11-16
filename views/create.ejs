@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant</title>
+    <style>
+    label{
+        font-size: 2.5em;
+        font-size: 40px;
+    }
+    </style>
+</head>
+
+<div>
+<body>
+    <div class="jumbotron text-center">
+            <h1>Create New User Document</h1>
+        </div>
+    <form action="/create" method="POST">
+        <label for='UserName'><b>UserName:</b></label><br>
+          <input type="text" id="UserName" name="UserName" placeholder="Name of user"><br><br>
+        
+        
+        <label for="date"><b>Date:</b></label><br>
+        <input type="date" id="date" name="date" placeholder="DD/MM/YYYY" ><br>
+        <small>Format: DD/MM/YYYY</small><br>
+        
+        <label for='borrow_or_return'><b>Borrow or Return:</b></label><br>
+            <input type="text" id="borrow_or_return" name="borrow_or_return" placeholder="Input borrow or return here"><br><br>
+        <label for='book_type'><b>Book Type:</b></label><br>
+            <input type="text" id="book_type" name="book_type" placeholder="Type of book"><br><br>
+        <label for='book_name'><b>Book Name:</b></label><br>
+          <input type="text" id="book_name" name="book_name" placeholder="Name of book"><br><br>    
+       <label for='phone_num'><b>Telephone number:</b></label><br>       
+            <input type="text" id="phone_num" name="phone_num" placeholder="User phone" pattern="[0-9]{8}"><br>
+        <small>Format: 12345678</small><br><br>
+
+        <label for='remark'><b>Remark:</b></label><br>
+            <textarea name="remark" id="remark" cols="50" rows="10" placeholder="Type your remarks here..."></textarea><br>
+        </p>
+        <input type="submit" value="Create" /> 
+        
+    </form>    
+    <button onclick="location.href='/home'">Back to Home</button>
+</body>
+</div>
+</html>

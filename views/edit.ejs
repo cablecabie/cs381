@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    label{
+        font-size: 3.0em;
+    }
+    p{
+        font-size: 3.0em;
+    }
+    </style>
+</head>
+<body>
+    <div class="jumbotron text-center">
+        <h1>Update Document Information</h1>
+    </div>
+    <form action="/update" method="POST">
+
+    <label for="UserName" value="item.UserName"><b>User Name: <%= item.UserName %></b></label><br><br>
+    
+    <input type="hidden" id="postId" name="postId" value="<%= item.UserName %>" />
+     
+    <label for="date"><b>Date:</b></label>
+    <input type="date" id="date" name="date" class="form-control" placeholder="" value= "<% if (item.Date) { %><%= item.Date %><% } %>" /><br><br>
+                
+    <label for="borrow_or_return"><b>Borrow or Return Book:</b></label>
+    <input type="text" id="borrow_or_return" name="borrow_or_return" class="form-control" placeholder="" value ="<% if (item.Borrow_or_Return) { %><%= item.Borrow_or_Return %><% } %>" /><br><br>
+
+    <label for="book_type"><b>Book Type:</b></label>
+    <input type="text" id="book_type" name="book_type" class="form-control" placeholder="" value ="<% if (item.Book_Information.Book_Type) { %><%= item.Book_Information.Book_Type %><% } %>" /><br><br>
+                
+    <label for="book_name"><b>Book Name:</b></label>
+    <input type="text" id="book_name" name="book_name" class="form-control" placeholder="" value ="<% if (item.Book_Information.Book_Name) { %><%= item.Book_Information.Book_Name %><% } %>"/> <br><br>
+                
+    <label for="phone_num"><b>Telephone Number:</b></label>
+    <input type="text" id="phone_num" name="phone_num" class="form-control" placeholder="" value = "<% if (item.Telephone_Number) { %><%= item.Telephone_Number %><% } %>" /><br><br>
+                
+    <label for="remark"><b>Description:</b></label><br>
+    <textarea name="remark" cols="50" rows="10" placeholder="" value = "<% if (item.Remark) { %><%= item.Remark %><% } %>" /></textarea><br>
+
+    <input type="submit" value="update">
+</html>
+
