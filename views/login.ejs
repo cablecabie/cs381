@@ -4,36 +4,70 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login system</title>
+    <title>Login System</title>
     <style>
-        label{
-            font-size:35px;  
-            
+        body {
+            background-color: #f1f1f1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            background-color: #f1f1f1;
         }
-              h1 {text-align: center;}
-      button {text-align: center;
-      font-size:30px;}
-      div {text-align: center;
-      font-size:30px}
-      form {text-align: center;  
-      }
-      p {text-align:center;}
-      input{font-size:25px}
+
+        .login-form {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            margin-top: 20px;
+            max-width: 500px;
+            width: 80%;
+        }
+
+        .logo-image {
+            width: 200px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 24px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        button[type="submit"] {
+            padding: 10px 20px;
+            font-size: 18px;
+        }
+
+        .title {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
-    <div>
-        <h1>Library Information System</h1>
-        <h2>Welcome!</h2>
+    <div class="logo-image" style="background-image: url('your-image-url');"></div>
+    <div class="login-form">
+        <h1 class="title"><center>Library Information System</center></h1>
+	<h2><center>Welcome!</center></h2>
+        <form action="/login" method="post">
+            <label for="account"><b>Enter your Account Here:</b></label><br>
+            <input type="text" id="account" name="account" placeholder="Your username"><br><br>
+            <label for="password"><b>Enter Your Password Here:</b></label><br>
+            <input type="password" id="password" name="password" placeholder="Your password"><br><br>
+            <button type="submit">Conform to login</button>
+        </form>
+ 	<p>Make sure you have an account here.</p>
     </div>
-    <form action="/login" method="post">
-        <label for='account'><b>Enter Your Account Here:</b></label><br>
-        <input type="text" id="account" name="account" placeholder="Your username"><br><br>
-        <label for='password'><b>Enter Your Password Here:</b></label><br>
-        <input type="password" id="password" name="password" placeholder="Your passward"><br><br>
-    <button type="submit">Conform to login</button>
-</form>
-<p>Make sure you have an account here.</p>
-
 </body>
 </html>
