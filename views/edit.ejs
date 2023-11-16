@@ -12,6 +12,13 @@
     p{
         font-size: 3.0em;
     }
+    
+    /* Added CSS */
+    .form-control {
+        width: 30%;
+        padding: 10px;
+        font-size: 1em;
+    }
     </style>
 </head>
 <body>
@@ -28,7 +35,10 @@
     <input type="date" id="date" name="date" class="form-control" placeholder="" value= "<% if (item.Date) { %><%= item.Date %><% } %>" /><br><br>
                 
     <label for="borrow_or_return"><b>Borrow or Return Book:</b></label>
-    <input type="text" id="borrow_or_return" name="borrow_or_return" class="form-control" placeholder="" value ="<% if (item.Borrow_or_Return) { %><%= item.Borrow_or_Return %><% } %>" /><br><br>
+    <select id="borrow_or_return" name="borrow_or_return" class="form-control">
+        <option value="Borrow" <% if (item.Borrow_or_Return === "Borrow") { %>selected<% } %>>Borrow</option>
+        <option value="Return" <% if (item.Borrow_or_Return === "Return") { %>selected<% } %>>Return</option>
+    </select><br><br>
 
     <label for="book_type"><b>Book Type:</b></label>
     <input type="text" id="book_type" name="book_type" class="form-control" placeholder="" value ="<% if (item.Book_Information.Book_Type) { %><%= item.Book_Information.Book_Type %><% } %>" /><br><br>
@@ -43,5 +53,5 @@
     <textarea name="remark" cols="50" rows="10" placeholder="" value = "<% if (item.Remark) { %><%= item.Remark %><% } %>" /></textarea><br>
 
     <input type="submit" value="update">
+</body>
 </html>
-
