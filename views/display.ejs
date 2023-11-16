@@ -1,11 +1,65 @@
-<html>
-    <body>
-        <H2>(<%= nItems %>) is found. There are (<%= nItems %>) restaurants. </H2>
-        <ul>
-            <% for (var i of items) { %>
-            <li>UserName: <a href="/details?_id=<%= i._id %>"><%= i.UserName %></a></li>
-            <% } %>
-        </ul>
-        <a href="/home">Back to home.</a>
-    </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Search Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        h2 {
+            text-align: center;
+            padding: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            width: 80%;
+            margin: 0 auto;
+        }
+        ul li {
+            background-color: #fff;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #333;
+        }
+        ul li a {
+            color: #333;
+            text-decoration: none;
+        }
+        ul li a:hover {
+            color: #fff;
+            background-color: #333;
+        }
+        a {
+            display: block;
+            width: 100px;
+            margin: 20px auto;
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        a:hover {
+            background-color: #fff;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h2>(<%= nItems %>) is found. There are (<%= nItems %>) restaurants.</h2>
+    <ul>
+        <% for (var i of items) { %>
+        <li>UserName: <a href="/details?_id=<%= i._id %>"><%= i.UserName %></a></li>
+        <% } %>
+    </ul>
+    <a href="/home">Back to home</a>
+</body>
 </html>
