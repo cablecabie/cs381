@@ -5,9 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Details</title>
+    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
     <style>
-        p{
-            font-size: 3.0em;
+        table {
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 10px 20px; /* Adjust the padding values as needed */
+        }
+
+        td {
+            font-size: 20px; /* Adjust the font-size value as needed */
         }
     </style>
 </head>
@@ -16,19 +25,49 @@
         <h1>Library Document Information</h1>
     </div>
     <div class="row">
-        <p>User_Name:  <% if (typeof (item.UserName) !== "undefined") { %><%= item.UserName %><% } %></p><br>
-        <p>Date:  <% if (typeof (item.Date) !== "undefined") { %><%= item.Date %><% } %></p><br>
-        
-        <p>Book_Type:  <% if (typeof (item.Book_Information.Book_Type) !== "undefined") { %><%= item.Book_Information.Book_Type %><% } %></p><br>
-        <p>Book_Name:  <% if (typeof (item.Book_Information.Book_Name) !== "undefined") { %><%= item.Book_Information.Book_Name %><% } %></p><br>
-        
-        <p>Borrow_or_Return:  <% if (typeof (item.Borrow_or_Return) !== "undefined") { %><%= item.Borrow_or_Return %><% } %></p><br>
-        <p>Telephone_Number:  <% if (typeof (item.Telephone_Number) !== "undefined") { %><%= item.Telephone_Number %><% } %></p><br>
-        <p>Remark:  <% if (typeof (item.Remark) !== "undefined") { %><%= item.Remark %><% } %></p><br>
+        <table id="data-table">
+            <tr>
+                <th>User_Name :</th>
+                <td><% if (typeof (item.UserName) !== "undefined") { %><%= item.UserName %><% } %></td>
+            </tr>
+            <tr>
+                <th>Date :</th>
+                <td><% if (typeof (item.Date) !== "undefined") { %><%= item.Date %><% } %></td>
+            </tr>
+            <tr>
+                <th>Book_Type :</th>
+                <td><% if (typeof (item.Book_Information.Book_Type) !== "undefined") { %><%= item.Book_Information.Book_Type %><% } %></td>
+            </tr>
+            <tr>
+                <th>Book_Name :</th>
+                <td><% if (typeof (item.Book_Information.Book_Name) !== "undefined") { %><%= item.Book_Information.Book_Name %><% } %></td>
+            </tr>
+            <tr>
+                <th>Borrow_or_Return :</th>
+                <td><% if (typeof (item.Borrow_or_Return) !== "undefined") { %><%= item.Borrow_or_Return %><% } %></td>
+            </tr>
+            <tr>
+                <th>Telephone_Number :</th>
+                <td><% if (typeof (item.Telephone_Number) !== "undefined") { %><%= item.Telephone_Number %><% } %></td>
+            </tr>
+            <tr>
+                <th>Remark :</th>
+                <td><% if (typeof (item.Remark) !== "undefined") { %><%= item.Remark %><% } %></td>
+            </tr>
+        </table>
     </div>
+    <button onclick="exportToExcel()">Export to Excel</button><br><br>
+    <script>
+        function exportToExcel() {
+            const table = document.getElementById('data-table');
+            const workbook = XLSX.utils.table_to_book(table);
+            XLSX.writeFile(workbook, 'library_information.xlsx');
+        }
+    </script>
+    <div>
         <a href="/edit?_id=<%= item._id %>" >Update the information</a><br><br>
         <a href="/delete?_id=<%= item._id %>&owner=<%= item.ownerID %>">Delete the information</a><br><br>
         <a href="/home">Back to home</a>
+    </div>
 </body>
 </html>
-
