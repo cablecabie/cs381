@@ -403,7 +403,7 @@ app.get('/api/item/UserName/:UserName', function(req,res) {
             });
         });
     } else {
-        res.status(500).json({"error": "missing restaurant id"});
+        res.status(500).json({"error": "missing book id"});
     }
 })
 
