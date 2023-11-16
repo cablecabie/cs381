@@ -1,12 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html>
+
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login System</title>
+    <title>Document</title>
+   
+
     <style>
         body {
+            background: url("pic/library2.jpg") center;
+            background-size: 120% auto;
+            background-repeat: no-repeat;
             background-color: #f1f1f1;
             display: flex;
             justify-content: center;
@@ -22,7 +27,7 @@
             border-radius: 10px;
             margin-top: 20px;
             max-width: 500px;
-            width: 80%;
+            width: 90%;
         }
 
         .logo-image {
@@ -32,34 +37,39 @@
         }
 
         label {
-            font-size: 24px;
+            font-size: 50px;
         }
 
         input[type="text"],
         input[type="password"] {
             width: 100%;
             padding: 10px;
-            font-size: 18px;
+            font-size: 25px;
             margin-bottom: 20px;
         }
 
         button[type="submit"] {
             padding: 10px 20px;
-            font-size: 18px;
+            font-size: 35px;
         }
 
         .title {
-            font-size: 36px;
+            font-size: 50px;
             font-weight: bold;
             margin-bottom: 20px;
         }
+         .code-box {
+        border: border-radius: 5px; 
+        padding: 60px; 
+        background-color: rgba(255, 255, 255, 0.8); 
+        }
     </style>
 </head>
+
 <body>
-    <div class="logo-image" style="background-image: url('your-image-url');"></div>
-    <div class="login-form">
+    <div class="code-box">
         <h1 class="title"><center>Library Information System</center></h1>
-	<h2><center>Welcome!</center></h2>
+        <h2 style="font-size: 35px;">Welcome!</h2>
         <form action="/login" method="post">
             <label for="account"><b>Enter your Account Here:</b></label><br>
             <input type="text" id="account" name="account" placeholder="Your username"><br><br>
@@ -67,7 +77,10 @@
             <input type="password" id="password" name="password" placeholder="Your password"><br><br>
             <button type="submit">Conform to login</button>
         </form>
- 	<p>Make sure you have an account here.</p>
+        <p style="font-size: 30px;">**Make sure you have an account here**</p>
     </div>
 </body>
+
+
+
 </html>
