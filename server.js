@@ -21,7 +21,7 @@ const greetingMsg = (name = null, includeTime = false) => {
   let today = new Date();
   let msg = (name != null) ? 'Hello ' + name + '! ' : 'Hello there!';
   if (includeTime) {
-    msg += ` It is now ${today.toTimeString()}`;
+    msg += ` It is now ${today.toLocaleTimeString('en-US', { timeZone: 'Asia/Hong_Kong' })}`;
   }
   return msg;
 };
@@ -168,7 +168,7 @@ app.get('/login', function(req, res){
     return res.status(200).render("login");
 });    
 app.post('/login', function(req, res){
-const usernamedisplay = req.body.usernamedisplay; 
+const usernamedisplay = req.body.account; 
     console.log("...Handling your login request");
     for (var i=0; i<usersinfo.length; i++){
         if (usersinfo[i].name == req.body.account && usersinfo[i].password == req.body.password) {
