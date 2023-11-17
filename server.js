@@ -377,8 +377,9 @@ app.get('/delete', function(req, res){
         console.log("...Hello !");
         handle_Delete(res, req.query);
     }else{
-        return res.status(200).render('info', {message: "Access denied - You don't have the access and deletion right!",
-        extraMessage: "Only the owner with ID " + req.session.userid + " can delete it."}
+        return res.status(200).render('info', {
+		message: "Access denied - You don't have the access and deletion right.  You are using user: " + req.session.userid + " ."
+	}
         
         ); 
     }
