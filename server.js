@@ -376,12 +376,10 @@ app.get('/delete', function(req, res){
     if(req.query.owner == req.session.userid){
         console.log("...Hello !");
         handle_Delete(res, req.query);
-    }else{
+    } else {
         return res.status(200).render('info', {
-		message: "Access denied - You don't have the access and deletion right.  You are using user: " + req.session.userid + " ."
-	}
-        
-        ); 
+            message: "Access denied - You don't have the access and deletion right. You are using user: " + req.session.userid + ". The original owner is: " + req.query.owner,
+        }); 
     }
 });
 
