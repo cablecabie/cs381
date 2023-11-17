@@ -161,36 +161,57 @@ app.get('/', function(req, res) {
   }
 });
 
-//1.login
+//1. Login
+
+// Render login page
 app.get('/login', function(req, res){
-    console.log("...Welcome to login page.")
-    res.sendFile(__dirname + '/public/login.html');
-    return res.status(200).render("login");
-});    
+  console.log("...Welcome to the login page.");
+  res.sendFile(__dirname + '/public/login.html');
+  return res.status(200).render("login");
+});
+
+// Handle login request
 app.post('/login', function(req, res){
-const usernamedisplay = req.body.account; 
-    console.log("...Handling your login request");
-    for (var i=0; i<usersinfo.length; i++){
-        if (usersinfo[i].name == req.body.account && usersinfo[i].password == req.body.password) {
-        req.session.authenticated = true;
-        req.session.userid = usersinfo[i].name;
-  req.session.usernamedisplay = usernamedisplay;
-        console.log(req.session.userid);
-        return res.status(200).redirect("/home");
-        }
-    }
-        console.log("Error username or password.");
-        return res.redirect("/");
+  const username = req.body.account;
+  const password = req.body.password;
+  console.log("...Handling your login request");
+
+  // Check if the username and password match
+  const user = usersinfo.find(user => user.name === username && user.password === password);
+  if (user) {
+    req.session.authenticated = true;
+    req.session.userid = user.name;
+    req.session.usernamedisplay = username;
+    console.log(req.session.userid);
+    return res.status(200).redirect("/home");
+  }
+
+  console.log("Invalid username or password.");
+  return res.redirect("/");
 });
 
 
 
-
-
-//logout
+// Logout
 app.get('/logout', function(req, res){
+    const username = req.session.userid; // Get the username from the session
+
+    // Clear the session and authentication status
     req.session = null;
     req.authenticated = false;
+
+    // Generate a random farewell message
+    const farewellMessages = [
+        `Goodbye, ${username}! See you next time.`,
+        `Logging out ${username}. Have a great day!`,
+        `Until we meet again, ${username}!`,
+        `Logout successful. Take care, ${username}!`
+    ];
+    const randomIndex = Math.floor(Math.random() * farewellMessages.length);
+    const farewellMessage = farewellMessages[randomIndex];
+
+    console.log(farewellMessage); // Log the farewell message
+
     res.redirect('/login');
 });
 
@@ -220,42 +241,39 @@ app.post('/create', function(req, res){
         console.log("Connected successfully to the DB server.");
         const db = client.db(dbName);
         
-        documents["_id"] = ObjectID;        
-	documents["UserName"] = req.body.UserName;	
-	documents['Date']= req.body.date;
-	documents['Borrow_or_Return']= req.body.borrow_or_return;
-	//documents['Book Type']= req.body.book_type;
-	//documents['Book Name']= req.body.book_name;
-        documents['Telephone_Number']= req.body.phone_num;
-        documents['Remark']= req.body.remark;
-        
-        var bookinfo ={};
-        bookinfo['Book_Type'] = req.body.book_type;
-        if(req.body.book_name){
-            bookinfo['Book_Name'] = req.body.book_name;
+        const newDocument = {
+            _id: ObjectID,
+            UserName: req.body.UserName,
+            Date: req.body.date,
+            Borrow_or_Return: req.body.borrow_or_return,
+            Telephone_Number: req.body.phone_num,
+            Remark: req.body.remark,
+            ownerID: req.session.userid
+        };
+
+        const bookinfo = {
+            Book_Type: req.body.book_type,
+        };
+        if (req.body.book_name) {
+            bookinfo.Book_Name = req.body.book_name;
         }
-        documents['Book_Information']= bookinfo;
+        newDocument.Book_Information = bookinfo;
         
         console.log("...putting data into documents");
         
-        documents["ownerID"] = `${req.session.userid}`;
-        
-     if(documents.UserName){
-        console.log("...Creating the document");
-        createDocument(db, documents, function(docs){
+        if (newDocument.UserName) {
+            console.log("...Creating the document");
+            createDocument(db, newDocument, function(docs){
+                client.close();
+                console.log("Closed DB connection");
+                return res.status(200).render('info', {message: "Document is created successfully!"});
+            });
+        } else {
             client.close();
             console.log("Closed DB connection");
-            return res.status(200).render('info', {message: "Document is created successfully!"});
-        });
-    } else{
-        client.close();
-        console.log("Closed DB connection");
-        return res.status(200).render('info', {message: "Invalid entry - User Name is compulsory!"});
-    }
-        
-        
+            return res.status(200).render('info', {message: "Invalid entry - User Name is compulsory!"});
+        }
     });
-    
 });
 
 
@@ -302,22 +320,25 @@ app.post('/search', function(req, res){
         console.log("Connected successfully to the DB server.");
         const db = client.db(dbName);
     
-    var searchID={};
-    searchID['UserName'] = req.body.UserName;
+        var searchID={};
+        searchID['UserName'] = req.body.UserName;
     
-    if (searchID.UserName){
-    console.log("...Searching the document");
-    findDocument(db, searchID, function(docs){
-            client.close();
-            console.log("Closed DB connection");
-            res.status(200).render('display', {nItems: docs.length, items: docs});
-        });
-    }
-    else{
-    console.log("Invalid Entry - UserName is compulsory for searching!");
-    res.status(200).redirect('/find');
-    }         	
-	});
+        if (searchID.UserName){
+            // Generate a unique search operation ID
+            const searchOperationID = Math.floor(Math.random() * 1000000);
+
+            console.log(`...Searching the document with operation ID: ${searchOperationID}`);
+            findDocument(db, searchID, function(docs){
+                client.close();
+                console.log(`Closed DB connection for search operation ID: ${searchOperationID}`);
+                res.status(200).render('display', {nItems: docs.length, items: docs});
+            });
+        }
+        else{
+            console.log("Invalid Entry - UserName is compulsory for searching!");
+            res.status(200).redirect('/find');
+        }         	
+    });
 });
 
 app.get('/find', function(req, res){
@@ -329,42 +350,44 @@ app.get('/details', function(req,res){
 });
 
 app.post('/update', function(req, res){
-    var updatedocument={};
+    const updatedDocument = {};
     const client = new MongoClient(mongourl);
-        client.connect(function(err){
-            assert.equal(null, err);
-            console.log("Connected successfully to server");
+    client.connect(function(err){
+        assert.equal(null, err);
+        console.log("Connected successfully to the server.");
+        
+        if (req.body.phone_num) {
+            updatedDocument.ownerID = req.session.userid;
+            updatedDocument.Telephone_Number = req.body.phone_num;
+            updatedDocument.Date = req.body.date;
+            updatedDocument.Borrow_or_Return = req.body.borrow_or_return;
+            updatedDocument.Remark = req.body.remark;
             
-                if(req.body.phone_num){
-                updatedocument["ownerID"] = `${req.session.userid}`
-                updatedocument['Telephone_Number']= req.body.phone_num;
-                updatedocument['Date']= req.body.date;
-                updatedocument['Borrow_or_Return']= req.body.borrow_or_return;
-                updatedocument['Remark']= req.body.remark;
-
-                var bookinfo ={};
-                bookinfo['Book_Type'] = req.body.book_type;
-                if(req.body.book_name){
-                    bookinfo['Book_Name'] = req.body.book_name;
-                }
-                updatedocument['Book_Information'] = bookinfo;
-
-        	let updateDoc = {};
-                updateDoc['UserName'] = req.body.postId;
-                console.log(updateDoc);
-
-                updateDocument(updateDoc, updatedocument, function(docs) {
-                    client.close();
-                    console.log("Closed DB connection");
-                    return res.render('info', {message: "Document is updated successfully!."});
-                    
-                })
+            const bookinfo = {
+                Book_Type: req.body.book_type
+            };
+            if (req.body.book_name) {
+                bookinfo.Book_Name = req.body.book_name;
             }
-            else{
-            	return res.render('info', {message: "Invalid entry - User Name is compulsory!"});
-            }
+            updatedDocument.Book_Information = bookinfo;
+            
+            const updateDoc = {
+                UserName: req.body.postId
+            };
+            
+            console.log(updateDoc);
+            
+            updateDocument(updateDoc, updatedDocument, function(docs) {
+                client.close();
+                console.log("Closed DB connection");
+                return res.render('info', {message: "Document is updated successfully!"});
+            });
+        } else {
+            client.close();
+            console.log("Closed DB connection");
+            return res.render('info', {message: "Invalid entry - User Name is compulsory!"});
+        }
     });
-    
 });
 
 
@@ -373,13 +396,28 @@ app.get('/edit', function(req,res) {
 })
 
 app.get('/delete', function(req, res){
-    if(req.query.owner == req.session.userid){
-        console.log("...Hello !");
+    const owner = req.query.owner;
+    const currentUser = req.session.userid;
+
+    if (owner === currentUser) {
+        // Generate a random greeting message
+        const greetings = [
+            "Hello!",
+            "Hi there!",
+            "Greetings!",
+            "Hey!"
+        ];
+        const randomIndex = Math.floor(Math.random() * greetings.length);
+        const greeting = greetings[randomIndex];
+
+        console.log(greeting); // Log the random greeting
+
         handle_Delete(res, req.query);
     } else {
         return res.status(200).render('info', {
-            message: "Access denied - You don't have the access and deletion right. You are using user: " + req.session.userid + ". The original owner is: " + req.query.owner,
-        }); 
+            message: `Access denied - You don't have the access and deletion right.
+                      You are using user: ${currentUser}. The original owner is: ${owner}`,
+        });
     }
 });
 
