@@ -423,6 +423,7 @@ app.get('/delete', function(req, res){
 
 
 // Restful find
+//curl -X GET http://localhost:3000/api/forfind/UserName/Luka
 app.get('/api/forfind/UserName/:UserName', function(req,res) {
     if (req.params.UserName) {
         let criteria = {};
@@ -445,6 +446,8 @@ app.get('/api/forfind/UserName/:UserName', function(req,res) {
 })
 
 //Restful delete
+//curl -X DELETE localhost:3000/api/fordelete/UserName/BK999
+
 app.delete('/api/fordelete/UserName/:UserName', function(req, res){
     if (req.params.UserName) {
         let criteria = {};
