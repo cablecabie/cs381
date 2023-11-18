@@ -423,7 +423,7 @@ app.get('/delete', function(req, res){
 
 
 // Restful find
-app.get('/api/item/UserName/:UserName', function(req,res) {
+app.get('/api/forfind/UserName/:UserName', function(req,res) {
     if (req.params.UserName) {
         let criteria = {};
         criteria['UserName'] = req.params.UserName;
@@ -445,7 +445,7 @@ app.get('/api/item/UserName/:UserName', function(req,res) {
 })
 
 //Restful delete
-app.delete('/api/item/UserName/:UserName', function(req, res){
+app.delete('/api/fordelete/UserName/:UserName', function(req, res){
     if (req.params.UserName) {
         let criteria = {};
         criteria['UserName'] = req.params.UserName;
