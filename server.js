@@ -444,6 +444,33 @@ app.get('/api/item/UserName/:UserName', function(req,res) {
     }
 })
 
+//Restful delete
+app.delete('/api/item/UserName/:UserName', function(req, res){
+    if (req.params.UserName) {
+        let criteria = {};
+        criteria['UserName'] = req.params.UserName;
+        const client = new MongoClient(mongourl);
+        client.connect(function(err){
+            assert.equal(null, err);
+            console.log("Connected successfully to server");
+            const db = client.db(dbName);
+
+            db.collection('Library_document_info').deleteMany(criteria, function(err, results) {
+                assert.equal(err, null);
+                client.close();
+
+                // Check if any documents were deleted
+                if (results.deletedCount > 0) {
+                    res.status(200).json({ "message": `${req.params.UserName} deleted successfully` });
+                } else {
+                    res.status(404).json({ "message": `${req.params.UserName} not found` });
+                }
+            });
+        });
+    } else {
+        res.status(400).json({"error": "missing username"});       
+    }
+});
 
 
 
