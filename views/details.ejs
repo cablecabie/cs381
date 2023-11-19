@@ -66,7 +66,34 @@
     </div>
     <div class="row">
         <table id="data-table">
-            <!-- Your table data goes here -->
+            <tr>
+                <th>User_Name :</th>
+                <td><% if (typeof (item.UserName) !== "undefined") { %><%= item.UserName %><% } %></td>
+            </tr>
+            <tr>
+                <th>Date :</th>
+                <td><% if (typeof (item.Date) !== "undefined") { %><%= item.Date %><% } %></td>
+            </tr>
+            <tr>
+                <th>Book_Type :</th>
+                <td><% if (typeof (item.Book_Information.Book_Type) !== "undefined") { %><%= item.Book_Information.Book_Type %><% } %></td>
+            </tr>
+            <tr>
+                <th>Book_Name :</th>
+                <td><% if (typeof (item.Book_Information.Book_Name) !== "undefined") { %><%= item.Book_Information.Book_Name %><% } %></td>
+            </tr>
+            <tr>
+                <th>Borrow_or_Return :</th>
+                <td><% if (typeof (item.Borrow_or_Return) !== "undefined") { %><%= item.Borrow_or_Return %><% } %></td>
+            </tr>
+            <tr>
+                <th>Telephone_Number :</th>
+                <td><% if (typeof (item.Telephone_Number) !== "undefined") { %><%= item.Telephone_Number %><% } %></td>
+            </tr>
+            <tr>
+                <th>Remark :</th>
+                <td><% if (typeof (item.Remark) !== "undefined") { %><%= item.Remark %><% } %></td>
+            </tr>
         </table>
     </div>
     <button onclick="exportToExcel()">Export to Excel</button><br><br>
