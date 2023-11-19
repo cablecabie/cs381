@@ -7,53 +7,16 @@
     <title>Details</title>
     <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-
-        .jumbotron {
-            text-align: center;
-            color: #fff;
-            background-color: #333;
-            padding: 50px 0;
-        }
-
         table {
-            margin: 20px auto;
-            border-collapse: collapse;
-            width: 80%;
+            margin-bottom: 20px;
         }
 
-        th {
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            text-align: left;
+        th, td {
+            padding: 10px 20px; /* Adjust the padding values as needed */
         }
 
         td {
-            padding: 10px;
-            border: 1px solid #ccc;
-        }
-
-        button, a {
-            display: block;
-            width: 200px;
-            height: 40px;
-            margin: 20px auto;
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            line-height: 40px;
-            border-radius: 4px;
-            text-decoration: none;
-        }
-
-        button:hover, a:hover {
-            background-color: #0056b3;
+            font-size: 20px; /* Adjust the font-size value as needed */
         }
     </style>
 </head>
@@ -63,7 +26,34 @@
     </div>
     <div class="row">
         <table id="data-table">
-            <!-- Your table data goes here -->
+            <tr>
+                <th>User_Name :</th>
+                <td><% if (typeof (item.UserName) !== "undefined") { %><%= item.UserName %><% } %></td>
+            </tr>
+            <tr>
+                <th>Date :</th>
+                <td><% if (typeof (item.Date) !== "undefined") { %><%= item.Date %><% } %></td>
+            </tr>
+            <tr>
+                <th>Book_Type :</th>
+                <td><% if (typeof (item.Book_Information.Book_Type) !== "undefined") { %><%= item.Book_Information.Book_Type %><% } %></td>
+            </tr>
+            <tr>
+                <th>Book_Name :</th>
+                <td><% if (typeof (item.Book_Information.Book_Name) !== "undefined") { %><%= item.Book_Information.Book_Name %><% } %></td>
+            </tr>
+            <tr>
+                <th>Borrow_or_Return :</th>
+                <td><% if (typeof (item.Borrow_or_Return) !== "undefined") { %><%= item.Borrow_or_Return %><% } %></td>
+            </tr>
+            <tr>
+                <th>Telephone_Number :</th>
+                <td><% if (typeof (item.Telephone_Number) !== "undefined") { %><%= item.Telephone_Number %><% } %></td>
+            </tr>
+            <tr>
+                <th>Remark :</th>
+                <td><% if (typeof (item.Remark) !== "undefined") { %><%= item.Remark %><% } %></td>
+            </tr>
         </table>
     </div>
     <button onclick="exportToExcel()">Export to Excel</button><br><br>
