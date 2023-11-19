@@ -6,17 +6,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Details</title>
     <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
-    <style>
-        table {
-            margin-bottom: 20px;
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
         }
 
-        th, td {
-            padding: 10px 20px; /* Adjust the padding values as needed */
+        .jumbotron {
+            text-align: center;
+            color: #fff;
+            background-color: #007bff;
+            padding: 50px 0;
+        }
+
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 80%;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            text-align: left;
         }
 
         td {
-            font-size: 20px; /* Adjust the font-size value as needed */
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+
+        button, a {
+            display: block;
+            width: 200px;
+            height: 40px;
+            margin: 20px auto;
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            line-height: 40px;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+
+        button:hover, a:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
