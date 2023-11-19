@@ -556,7 +556,7 @@ app.post('/api/UserName/:UserName', (req, res) => {
     if (req.body.UserName) {
         // Check if Borrow_or_Return is either 'Borrow' or 'Return'
         if (req.body.Borrow_or_Return !== 'Borrow' && req.body.Borrow_or_Return !== 'Return') {
-            return res.status(400).json({ "error": "Invalid book type. It should be either 'borrow' or 'return'." });
+            return res.status(400).json({ "error": "Invalid Input. It should be either 'borrow' or 'return'." });
         }
 
         console.log(req.fields);
