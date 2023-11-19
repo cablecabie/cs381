@@ -489,6 +489,24 @@ curl -X PUT -H "Content-Type: application/json" -d '{
     "ownerID": "jt4"
 }' "http://localhost:3000/api/UserName/JTTTTTTTT"
 */
+app.put('/api/UserName/:UserName', (req, res) => {
+    const username = req.params.UserName;
+
+    // Define the updated document
+    const updatedDocument = {
+        _id: ObjectID,
+        UserName: req.body.UserName,
+        Date: req.body.date,
+        Borrow_or_Return: req.body.borrow_or_return,
+        Telephone_Number: req.body.phone_num,
+        Remark: req.body.remark,
+        ownerID: req.body.ownerID,
+        Book_Information: {
+            Book_Type: req.body.book_type,
+            Book_Name: req.body.book_name
+        }
+    };
+
     // Create a new MongoDB client
     const client = new MongoClient(mongourl, { useNewUrlParser: true, useUnifiedTopology: true });
     
