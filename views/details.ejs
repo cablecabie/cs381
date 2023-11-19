@@ -48,6 +48,12 @@
             flex-wrap: wrap;
         }
 
+        .center {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
         button, a {
             width: 200px;
             height: 40px;
@@ -102,7 +108,9 @@
             </tr>
         </table>
     </div>
-    <button onclick="exportToExcel()"><center>Export to Excel</center></button><br><br>
+    <div class="center">
+        <button onclick="exportToExcel()">Export to Excel</button>
+    </div>
     <script>
         function exportToExcel() {
             const table = document.getElementById('data-table');
