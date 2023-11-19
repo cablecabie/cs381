@@ -540,7 +540,17 @@ app.put('/api/UserName/:UserName', (req, res) => {
     });
 });
 
-
+/*curl -X POST -H "Content-Type: application/json" -d "
+	{\"UserName\":\"luffy\",
+	\"Date\":\"2023-01-01\",
+	\"Borrow_or_Return\":\"Borrow\",	
+	\"Telephone_Number\":\"1234567890\",
+	\"Remark\":\"Sample remark\",
+	\"ownerID\":\"123\",
+	\"Book_Information\":
+	{\"Book_Type\":\"fiction\",\"Book_Name\":\"one piece\"}}" 
+	http://localhost:3000/api/UserName/luffy
+*/
 //Restful Create
 app.post('/api/UserName/:UserName', (req, res) => {
     if (req.body.UserName) {
