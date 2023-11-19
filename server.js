@@ -489,23 +489,39 @@ curl -X PUT -H "Content-Type: application/json" -d '{
     "ownerID": "jt4"
 }' "http://localhost:3000/api/UserName/JTTTTTTTT"
 */
-app.put('/api/UserName/:UserName', (req, res) => {
-    const username = req.params.UserName;
-
-    // Define the updated document
-    const updatedDocument = {
-        _id: ObjectID,
-        UserName: req.body.UserName,
-        Date: req.body.date,
-        Borrow_or_Return: req.body.borrow_or_return,
-        Telephone_Number: req.body.phone_num,
-        Remark: req.body.remark,
-        ownerID: req.body.ownerID,
-        Book_Information: {
-            Book_Type: req.body.book_type,
-            Book_Name: req.body.book_name
+app.post('/api/UserName/:UserName', (req, res) => {
+    if (req.body.UserName) {
+        // Check if Borrow_or_Return is either 'Borrow' or 'Return'
+        if (req.body.Borrow_or_Return !== 'Borrow' && req.body.Borrow_or_Return !== 'Return') {
+            return res.status(400).json({ "error": "Invalid book type. It should be either 'borrow' or 'return'." });
         }
-    };
+
+        console.log(req.fields);
+        const client = new MongoClient(mongourl);
+        client.connect((err) => {
+            assert.equal(null, err);
+            console.log("Connected successfully to the server");
+            const db = client.db(dbName);
+            let newDoc = {
+                UserName: req.body.UserName,  
+                Date: req.body.Date,
+                Borrow_or_Return: req.body.Borrow_or_Return,
+                Telephone_Number: req.body.Telephone_Number,
+                Remark: req.body.Remark,
+                ownerID: req.body.ownerID,
+  		Book_Information: req.body.Book_Information
+            };
+
+            db.collection('Library_document_info').insertOne(newDoc, (err, results) => {
+                assert.equal(err, null);
+                client.close();
+                res.status(200).json({ "Successfully inserted": newDoc }).end();
+            });
+        });
+    } else {
+        res.status(500).json({ "error": "missing UserName" });
+    }
+});
 
     // Create a new MongoDB client
     const client = new MongoClient(mongourl, { useNewUrlParser: true, useUnifiedTopology: true });
