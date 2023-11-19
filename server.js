@@ -476,6 +476,74 @@ app.delete('/api/fordelete/UserName/:UserName', function(req, res){
 });
 
 
+// Restful Update
+/*
+curl -X PUT -H "Content-Type: application/json" -d '{
+    "UserName": "hahaha",
+    "date": "2023-11-10",
+    "borrow_or_return": "return",
+    "phone_num": "01212331",
+    "remark": "No",
+    "book_type": "Fiction",
+    "book_name": "NewHOME ",
+    "ownerID": "jt4"
+}' "http://localhost:3000/api/UserName/JTTTTTTTT"
+*/
+app.put('/api/UserName/:UserName', (req, res) => {
+    const username = req.params.UserName;
+
+    // Define the updated document
+    const updatedDocument = {
+        _id: ObjectID,
+        UserName: req.body.UserName,
+        Date: req.body.date,
+        Borrow_or_Return: req.body.borrow_or_return,
+        Telephone_Number: req.body.phone_num,
+        Remark: req.body.remark,
+        ownerID: req.body.ownerID,
+        Book_Information: {
+            Book_Type: req.body.book_type,
+            Book_Name: req.body.book_name
+        }
+    };
+
+    // Create a new MongoDB client
+    const client = new MongoClient(mongourl, { useNewUrlParser: true, useUnifiedTopology: true });
+    
+    client.connect(function(err) {
+        assert.equal(null, err);
+        console.log("Connected successfully to server");
+
+        // Access your DB within the client.connect callback to ensure it's defined
+        const db = client.db(dbName);
+
+        // Update the document in MongoDB
+        db.collection('Library_document_info').findOneAndUpdate(
+            { UserName: username },
+            { $set: updatedDocument },
+            { returnOriginal: false },
+            (err, result) => {
+                client.close();  // Close the connection when you're done
+                if (err) {
+                    console.error('Error updating document:', err);
+                    res.status(500).json({ message: 'Error updating document' });
+                } else {
+                    if (result.value === null) {
+                        res.status(404).json({ message: 'Document not found' });
+                    } else {
+                        console.log('Document updated successfully');
+                        res.status(200).json({ message: 'Document updated successfully', updatedDocument: result.value });
+                    }
+                }
+            }
+        );
+    });
+});
+
+
+
+
+
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
