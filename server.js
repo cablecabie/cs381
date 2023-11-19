@@ -489,6 +489,39 @@ curl -X PUT -H "Content-Type: application/json" -d '{
     "ownerID": "jt4"
 }' "http://localhost:3000/api/UserName/JTTTTTTTT"
 */
+    // Create a new MongoDB client
+    const client = new MongoClient(mongourl, { useNewUrlParser: true, useUnifiedTopology: true });
+    
+    client.connect(function(err) {
+        assert.equal(null, err);
+        console.log("Connected successfully to server");
+
+        // Access your DB within the client.connect callback to ensure it's defined
+        const db = client.db(dbName);
+
+        // Update the document in MongoDB
+        db.collection('Library_document_info').findOneAndUpdate(
+            { UserName: username },
+            { $set: updatedDocument },
+            { returnOriginal: false },
+            (err, result) => {
+                client.close();  // Close the connection when you're done
+                if (err) {
+                    console.error('Error updating document:', err);
+                    res.status(500).json({ message: 'Error updating document' });
+                } else {
+                    if (result.value === null) {
+                        res.status(404).json({ message: 'Document not found' });
+                    } else {
+                        console.log('Document updated successfully');
+                        res.status(200).json({ message: 'Document updated successfully', updatedDocument: result.value });
+                    }
+                }
+            }
+        );
+    });
+});
+
 
 //Restful Create
 app.post('/api/UserName/:UserName', (req, res) => {
@@ -524,40 +557,6 @@ app.post('/api/UserName/:UserName', (req, res) => {
         res.status(500).json({ "error": "missing UserName" });
     }
 });
-
-    // Create a new MongoDB client
-    const client = new MongoClient(mongourl, { useNewUrlParser: true, useUnifiedTopology: true });
-    
-    client.connect(function(err) {
-        assert.equal(null, err);
-        console.log("Connected successfully to server");
-
-        // Access your DB within the client.connect callback to ensure it's defined
-        const db = client.db(dbName);
-
-        // Update the document in MongoDB
-        db.collection('Library_document_info').findOneAndUpdate(
-            { UserName: username },
-            { $set: updatedDocument },
-            { returnOriginal: false },
-            (err, result) => {
-                client.close();  // Close the connection when you're done
-                if (err) {
-                    console.error('Error updating document:', err);
-                    res.status(500).json({ message: 'Error updating document' });
-                } else {
-                    if (result.value === null) {
-                        res.status(404).json({ message: 'Document not found' });
-                    } else {
-                        console.log('Document updated successfully');
-                        res.status(200).json({ message: 'Document updated successfully', updatedDocument: result.value });
-                    }
-                }
-            }
-        );
-    });
-});
-
 
 
 
