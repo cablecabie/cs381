@@ -5,7 +5,7 @@ Render URL https://cs381.onrender.com/
 Group 35 
 Name: 
 So Cheuk Him (s12283545)
-
+Cheng Caleb  (s1303848)
 
 
 
@@ -53,13 +53,60 @@ Total 2 different function to reading the information
 2) In the list function, all the user information will be shown, including how many documents in total,  user can simply click on any document and then view the details.
 
 *********************
+#CRUD Update
 
+The user can update the library document information through the details interface.
+Among the attribute shown above, User_Name cannot be changed. Since User_Name is fixed, User_Name is searching criteria for updating information. 
+A library document contain the following attributes: 
+1) Date (DDMMYYYY; User can choose the date using the calendar logo)
+2) Borrow or Return (2 Choises only)
+3) Book Type
+4) Book Name
+5) Telephone Number (User should input a 6 digit number)
+6) Remark (...comments or anythings else)
 
+*********************
+#CRUD Delete
 
+The user can delete the library document information  through the details interface.
 
+*********************
+#Restful
+In this project, there are four HTTP request types, post, get, put and delete.
 
+Post 
+-Post request is used for CRUD create.
+-Path URL: /api/UserName/:UserName
+-Test: curl -X POST -H "Content-Type: application/json" -d '{"UserName":"abc","Date":"2023-01-01","Borrow_or_Return":"Borrow","Telephone_Number":"1234567890","Remark":"Sample remark","ownerID":"123","Book_Information":{"Book_Type":"comics","Book_Name":"test"}}' localhost:3000/api/UserName/abc
 
+Get
+-Get request is used for CRUD read.
+-Path URL: /api/forfind/UserName/:UserName
+-Test: curl -X GET http://localhost:3000/api/forfind/UserName/abc
 
+Put 
+-Put request is used for CRUD update.
+-Path URL:/api/UserName/:UserName
+-Test: curl -X PUT -H "Content-Type: application/json" -d '{
+    "UserName": "abc",
+    "date": "2023-11-10",
+    "borrow_or_return": "return",
+    "phone_num": "01212331",
+    "remark": "No",
+    "book_type": "Fiction",
+    "book_name": "NewHOME ",
+    "ownerID": "jt4"
+}' localhost:3000/api/UserName/abc
 
+Delete
+-Delete request is used for deletion.
+-Path URL: /api/fordelete/UserName/:UserName
+-Test: curl -X DELETE localhost:3000/api/fordelete/UserName/abc
 
+curl -X POST -H "Content-Type: application/json" -d '{"UserName":"abc","Date":"2023-01-01","Borrow_or_Return":"Borrow","Telephone_Number":"1234567890","Remark":"Sample remark","ownerID":"123","Book_Information":{"Book_Type":"comics","Book_Name":"test"}}' localhost:3000/api/UserName/abc
 
+curl -X GET http://localhost:3000/api/forfind/UserName/abc
+
+curl -X PUT -H "Content-Type: application/json" -d '{     "UserName": "abc",     "date": "2023-11-10",     "borrow_or_return": "return",     "phone_num": "01212331",     "remark": "No",     "book_type": "Fiction",     "book_name": "NewHOME ",     "ownerID": "jt4" }' localhost:3000/api/UserName/abc
+
+curl -X DELETE localhost:3000/api/fordelete/UserName/abc
