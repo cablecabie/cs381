@@ -1,7 +1,7 @@
 {
     "name": "server",
     "description": "COMPS381F project",
-    "author": "DSAI2024_graduates",
+    "author": "datascience&ai",
     "version": "0.0.1",
     "engines": {
         "node": "^14.15.1"
