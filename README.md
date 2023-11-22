@@ -5,7 +5,7 @@ Render URL https://cs381.onrender.com/
 Group 35 
 Name: 
 So Cheuk Him (s12283545)
-Cheng Caleb  (s1303848)
+Cheng Caleb  (s13038482)
 
 
 
@@ -75,19 +75,19 @@ The user can delete the library document information  through the details interf
 In this project, there are four HTTP request types, post, get, put and delete.
 
 Post 
--Post request is used for CRUD create.
--Path URL: /api/UserName/:UserName
--Test: curl -X POST -H "Content-Type: application/json" -d '{"UserName":"abc","Date":"2023-01-01","Borrow_or_Return":"Borrow","Telephone_Number":"1234567890","Remark":"Sample remark","ownerID":"123","Book_Information":{"Book_Type":"comics","Book_Name":"test"}}' localhost:3000/api/UserName/abc
+Post request is used for CRUD create.
+Path URL: /api/UserName/:UserName
+Test: curl -X POST -H "Content-Type: application/json" -d '{"UserName":"abc","Date":"2023-01-01","Borrow_or_Return":"Borrow","Telephone_Number":"1234567890","Remark":"Sample remark","ownerID":"123","Book_Information":{"Book_Type":"comics","Book_Name":"test"}}' localhost:3000/api/UserName/abc
 
 Get
--Get request is used for CRUD read.
--Path URL: /api/forfind/UserName/:UserName
--Test: curl -X GET http://localhost:3000/api/forfind/UserName/abc
+Get request is used for CRUD read.
+Path URL: /api/forfind/UserName/:UserName
+Test: curl -X GET http://localhost:3000/api/forfind/UserName/abc
 
 Put 
--Put request is used for CRUD update.
--Path URL:/api/UserName/:UserName
--Test: curl -X PUT -H "Content-Type: application/json" -d '{
+Put request is used for CRUD update.
+Path URL:/api/UserName/:UserName
+Test: curl -X PUT -H "Content-Type: application/json" -d '{
     "UserName": "abc",
     "date": "2023-11-10",
     "borrow_or_return": "return",
@@ -99,9 +99,10 @@ Put
 }' localhost:3000/api/UserName/abc
 
 Delete
--Delete request is used for deletion.
--Path URL: /api/fordelete/UserName/:UserName
--Test: curl -X DELETE localhost:3000/api/fordelete/UserName/abc
+Delete request is used for deletion.
+Path URL: /api/fordelete/UserName/:UserName
+Test: curl -X DELETE localhost:3000/api/fordelete/UserName/abc
+
 
 curl -X POST -H "Content-Type: application/json" -d '{"UserName":"abc","Date":"2023-01-01","Borrow_or_Return":"Borrow","Telephone_Number":"1234567890","Remark":"Sample remark","ownerID":"123","Book_Information":{"Book_Type":"comics","Book_Name":"test"}}' localhost:3000/api/UserName/abc
 
