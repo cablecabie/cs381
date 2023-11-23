@@ -15,7 +15,7 @@ const session = require('cookie-session');
 app.set('view engine', 'ejs');
 
 
-// sadas
+
 
 const greetingMsg = (name = null, includeTime = false) => {
   let today = new Date();
@@ -31,7 +31,7 @@ app.use("/download",express.static('views/video'));  // virtual path /download -
 var documents = {};
 
 
-// asdasd
+
 
 //2.userinfo
 var usersinfo = new Array(
