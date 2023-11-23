@@ -1,4 +1,4 @@
-Library Information System 
+Library Document Information System 
 
 Render URL https://cs381.onrender.com/
 
