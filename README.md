@@ -46,6 +46,7 @@ An user document can be created with various attributes, including:
 7) Remark (...comments or anythings else)
 
 User Name is mandatory, the others are optional.
+Create operation is post request, and all information is in body of request.
 *********************
 #CRUD Read 
 
@@ -78,7 +79,7 @@ In this project, there are four HTTP request types, post, get, put and delete.
 
 #Post 
 
-Post request is used for CRUD create.
+Post request is used for CRUD create/insert.
 
 Path URL: /api/UserName/:UserName
 Test: curl -X POST -H "Content-Type: application/json" -d '{"UserName":"abc","Date":"2023-01-01","Borrow_or_Return":"Borrow","Telephone_Number":"1234567890","Remark":"Sample remark","ownerID":"123","Book_Information":{"Book_Type":"comics","Book_Name":"test"}}' localhost:3000/api/UserName/abc
@@ -114,6 +115,7 @@ Path URL: /api/fordelete/UserName/:UserName
 Test: curl -X DELETE localhost:3000/api/fordelete/UserName/abc
 
 
+For all restful CRUD services, login should be done at first.
 curl -X POST -H "Content-Type: application/json" -d '{"UserName":"abc","Date":"2023-01-01","Borrow_or_Return":"Borrow","Telephone_Number":"1234567890","Remark":"Sample remark","ownerID":"123","Book_Information":{"Book_Type":"comics","Book_Name":"test"}}' localhost:3000/api/UserName/abc
 
 curl -X GET http://localhost:3000/api/forfind/UserName/abc
